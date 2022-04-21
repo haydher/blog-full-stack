@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const Auth = () => {
+export const Auth = ({ setLoggedIn }) => {
  const [user, setUser] = useState({
   username: "",
   password: "",
@@ -26,6 +26,7 @@ export const Auth = () => {
   const res = await fetch(url, options);
   const data = await res.json();
 
+  if (res.status === 200) setLoggedIn(true);
   console.log(data);
  };
 

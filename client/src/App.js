@@ -1,16 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Auth } from "./components/Auth";
 import "./App.css";
 import { Posts } from "./components/Posts";
 
 function App() {
- const loggedIn = false;
+ const [loggedIn, setLoggedIn] = useState(false);
 
- useEffect(() => {
-  return () => {};
- }, []);
-
- return <div className="App">{!loggedIn ? <Auth /> : <Posts />}</div>;
+ return (
+  <div className="App">
+   {!loggedIn ? <Auth setLoggedIn={setLoggedIn} /> : <Posts loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}
+  </div>
+ );
 }
 
 export default App;

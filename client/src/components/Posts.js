@@ -1,8 +1,10 @@
 import React from "react";
 
-export const Posts = () => {
+export const Posts = ({ setLoggedIn }) => {
  return (
   <div>
+   <button onClick={() => setLoggedIn(false)}>Log out</button>
+
    <h1>Title</h1>
    <p>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni reiciendis explicabo tenetur, amet, corrupti minima
