@@ -37,7 +37,7 @@ export const Posts = ({ loggedIn, setLoggedIn }) => {
   <div>
    <button onClick={() => setLoggedIn(false)}>Log out</button>
    <br />
-   <NewPost />
+   <NewPost setPosts={setPosts} />
    <br />
    {userPosts ? userPosts : error ? "Error fetching data" : "Loading"}
   </div>

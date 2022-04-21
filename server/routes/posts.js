@@ -32,4 +32,13 @@ router.get("/", (req, res) => {
  res.status(200).send(posts);
 });
 
+router.post("/", (req, res) => {
+ console.log("req.body", req.body);
+ console.log("req.body", req.body.length);
+
+ posts.push({ ...req.body, id: posts.length + 1 });
+
+ res.status(200).send(posts);
+});
+
 module.exports = router;
