@@ -23,10 +23,14 @@ export const Posts = ({ loggedIn, setLoggedIn }) => {
    res.status === 200 ? setPosts(data.response) : setError(true);
   };
 
-  loggedIn && fetchPosts();
+  loggedIn && !posts && fetchPosts();
   console.log("posts", posts);
   return () => {};
- }, [loggedIn, error]);
+ }, [loggedIn, error, posts]);
+
+ useEffect(() => {
+  console.log("posts", posts);
+ }, [posts]);
 
  // loop over the returned data and show them on the page
  const userPosts =
@@ -41,13 +45,18 @@ export const Posts = ({ loggedIn, setLoggedIn }) => {
    );
   });
 
+ const handleLogout = () => {
+  setLoggedIn(false);
+  localStorage.removeItem("token");
+ };
+
  return (
   <div>
-   <button onClick={() => setLoggedIn(false)}>Log out</button>
+   <button onClick={handleLogout}>Log out</button>
    <br />
-   <NewPost setPosts={setPosts} />
+   <NewPost posts={posts} setPosts={setPosts} />
    <br />
-   {userPosts ? userPosts : error ? "Error fetching data" : "Loading..."}
+   {userPosts ? userPosts : error ? "Error fetching data" : "No Posts yet"}
   </div>
  );
 };

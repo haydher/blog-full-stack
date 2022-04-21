@@ -4,7 +4,8 @@ import "./App.css";
 import { Posts } from "./components/Posts";
 
 function App() {
- const [loggedIn, setLoggedIn] = useState(false);
+ const auth = localStorage.getItem("token") ? true : false;
+ const [loggedIn, setLoggedIn] = useState(auth);
 
  return (
   <div className="App">

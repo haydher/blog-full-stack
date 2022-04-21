@@ -30,12 +30,6 @@ app.get("/", (req, res) => {
  res.send("hello world");
 });
 
-app.get("/find/:id", async (req, res) => {
- const result = await Post.findById(req.params.id);
- console.log("res", result);
- res.send(result);
-});
-
 app.get("*", function (req, res) {
  res.send("404");
 });

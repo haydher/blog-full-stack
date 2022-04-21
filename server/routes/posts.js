@@ -10,7 +10,6 @@ const { verifyPost, newPost } = require("../utils");
 router.get("/", authUser, async (req, res) => {
  const userAuth = req.userId;
 
- console.log("userauth", userAuth);
  const user = await User.findById(userAuth);
 
  if (!user || user === undefined) return res.status(400).send({ status: 400, response: "No User found" });
@@ -29,13 +28,14 @@ router.post("/", authUser, async (req, res) => {
 
  const response = await newPost(req.body, userAuth);
 
+ // return all posts from user
  const user = await User.findById(userAuth);
  if (!user || user === undefined) return res.status(400).send({ status: 400, response: "No User found" });
 
  const posts = await Post.find().where("_id").in(user.posts).exec();
 
  if (response.status !== 200) return res.status(400).send(response);
- return res.status(200).send({ status: 200, posts });
+ return res.status(200).send({ status: 200, reponse: posts });
 });
 
 module.exports = router;

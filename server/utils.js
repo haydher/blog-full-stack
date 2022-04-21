@@ -52,17 +52,20 @@ const newUser = async (user) => {
  return { status: 200, response: res.username, token };
 };
 
+// verify user posts data
 const verifyPost = (userPost) => {
  if (!userPost.title || !userPost.post || userPost.title.length < 2 || userPost.post.length < 5)
   return { status: 400, response: "Invalid data" };
  return { status: 200 };
 };
 
+// make a new post
 const newPost = async (post, author) => {
  const newPost = new Post({ ...post, author });
 
  const res = await newPost.save();
 
+ // update users posts
  const updateUser = await User.findOneAndUpdate({ _id: author }, { $push: { posts: newPost._id } });
  await updateUser.save();
 

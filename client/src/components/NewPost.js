@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const NewPost = ({ setPosts }) => {
+export const NewPost = ({ posts, setPosts }) => {
  const [post, setPost] = useState({
   title: "",
   post: "",
@@ -28,8 +28,7 @@ export const NewPost = ({ setPosts }) => {
   const res = await fetch(url, options);
   const data = await res.json();
 
-  res.status === 200 && setPosts(data.response);
-  console.log(data);
+  if (res.status === 200) setPosts(data.response);
  };
 
  return (
