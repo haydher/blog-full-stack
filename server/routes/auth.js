@@ -15,8 +15,9 @@ router.post("/:param", async (req, res) => {
  // get the current user from db
  if (req.params?.param === "login") response = await getUser(req.body);
 
+ console.log("reponse", response);
  if (response.status !== 200) return res.status(400).send(response);
- return res.status(200).send(response);
+ return res.status(200).set({ token: "text/plain" }).send(response);
 });
 
 module.exports = router;

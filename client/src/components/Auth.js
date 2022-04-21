@@ -26,7 +26,10 @@ export const Auth = ({ setLoggedIn }) => {
   const res = await fetch(url, options);
   const data = await res.json();
 
-  if (res.status === 200) setLoggedIn(true);
+  if (res.status === 200) {
+   setLoggedIn(true);
+   localStorage.setItem("token", data.token);
+  }
   console.log(data);
  };
 

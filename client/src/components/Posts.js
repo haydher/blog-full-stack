@@ -8,22 +8,23 @@ export const Posts = ({ loggedIn, setLoggedIn }) => {
  // fetch data from the server if user is logged in
  useEffect(() => {
   const fetchPosts = async () => {
+   const token = localStorage.getItem("token");
    const url = `http://localhost:5500/posts`;
 
    const res = await fetch(url, {
     headers: {
-     Authorization: `6260e168f3feb7d2771296fd`,
+     Authorization: token,
     },
    });
 
    const data = await res.json();
 
    console.log("data", data);
-   res.status === 200 ? setPosts(data) : setError(true);
+   res.status === 200 ? setPosts(data.response) : setError(true);
   };
 
   loggedIn && fetchPosts();
-
+  console.log("posts", posts);
   return () => {};
  }, [loggedIn, error]);
 
@@ -33,7 +34,7 @@ export const Posts = ({ loggedIn, setLoggedIn }) => {
   posts.length > 0 &&
   posts.map((elem) => {
    return (
-    <div key={elem.id}>
+    <div key={elem._id}>
      <h1>{elem.title}</h1>
      <p>{elem.post}</p>
     </div>

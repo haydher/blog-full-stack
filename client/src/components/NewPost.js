@@ -11,7 +11,7 @@ export const NewPost = ({ setPosts }) => {
  };
 
  const handleSubmit = async () => {
-  console.log(post);
+  const token = localStorage.getItem("token");
 
   const url = `http://localhost:5500/posts`;
 
@@ -20,7 +20,7 @@ export const NewPost = ({ setPosts }) => {
    headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
-    Authorization: "6260e168f3feb7d2771296fd",
+    Authorization: token,
    },
    body: JSON.stringify(post),
   };
@@ -28,7 +28,7 @@ export const NewPost = ({ setPosts }) => {
   const res = await fetch(url, options);
   const data = await res.json();
 
-  res.status === 200 && setPosts(data);
+  res.status === 200 && setPosts(data.response);
   console.log(data);
  };
 

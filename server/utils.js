@@ -1,5 +1,7 @@
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const User = require("./models/user");
+const Post = require("./models/post");
 
 // verify user input
 const verifyData = (user) => {
@@ -17,7 +19,11 @@ const getUser = async (user) => {
  // decrypt given password with encrypted password
  const comparePass = await bcrypt.compare(user.password, userFromDB.password);
 
- if (comparePass) return { status: 200, result: userFromDB.username };
+ const token = jwt.sign({ userId: userFromDB._id }, process.env.JWT_TOKEN);
+
+ console.log("token", token);
+
+ if (comparePass) return { status: 200, result: userFromDB.username, token };
  else return { status: 400, result: "Incorrect username or password" };
 };
 
@@ -40,11 +46,34 @@ const newUser = async (user) => {
 
  const res = await newUser.save();
 
- return { status: 200, response: res.username };
+ const token = jwt.sign({ userId: newUser._id }, process.env.JWT_TOKEN);
+
+ console.log("token", token);
+ return { status: 200, response: res.username, token };
+};
+
+const verifyPost = (userPost) => {
+ if (!userPost.title || !userPost.post || userPost.title.length < 2 || userPost.post.length < 5)
+  return { status: 400, response: "Invalid data" };
+ return { status: 200 };
+};
+
+const newPost = async (post, author) => {
+ const newPost = new Post({ ...post, author });
+
+ const res = await newPost.save();
+
+ const updateUser = await User.findOneAndUpdate({ _id: author }, { $push: { posts: newPost._id } });
+ await updateUser.save();
+
+ if (!res || res === undefined) return { status: 400, response: "Failed to submit post" };
+ return { status: 200, response: res };
 };
 
 module.exports = {
  verifyData,
  getUser,
  newUser,
+ verifyPost,
+ newPost,
 };
