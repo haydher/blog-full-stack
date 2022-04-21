@@ -5,9 +5,7 @@ router.get("/", (req, res) => {
  res.send({ success: "success" });
 });
 
-router.post("/:param", (req, res) => {
- console.log(req.body);
- console.log(req.params);
+router.post("/:param", async (req, res) => {
  res.status(200).send({ status: 200 });
 });
 
