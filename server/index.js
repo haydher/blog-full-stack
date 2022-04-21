@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const login = require("./routes/login");
+const auth = require("./routes/auth");
 
 app.use(express.json());
 app.use(
@@ -12,7 +12,7 @@ app.use(
 );
 app.use(cors());
 
-app.use("/login", login);
+app.use("/auth", auth);
 
 app.get("/", (req, res) => {
  res.send("hello world");

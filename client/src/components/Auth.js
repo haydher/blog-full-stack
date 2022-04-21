@@ -10,13 +10,17 @@ export const Auth = () => {
   setUser({ ...user, [e.target.name]: e.target.value });
  };
 
- const handleSubmit = async () => {
-  console.log("user", user);
-  const url = `http://localhost:5500/login`;
+ const handleSubmit = async (e) => {
+  const btnName = e.target.name;
+  const url = `http://localhost:5500/auth/${btnName}`;
 
   const options = {
-   method: "POST", // *GET, POST, PUT, DELETE, etc.
-   body: JSON.stringify(user), // body data type must match "Content-Type" header
+   method: "POST",
+   headers: {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+   },
+   body: JSON.stringify(user),
   };
 
   const res = await fetch(url, options);
@@ -31,7 +35,12 @@ export const Auth = () => {
    <br />
    <input type="text" name="password" placeholder="password" onChange={handleChange} />
    <br />
-   <button onClick={handleSubmit}>Login</button>
+   <button name="login" onClick={handleSubmit}>
+    Login
+   </button>
+   <button name="signup" onClick={handleSubmit}>
+    Sign up
+   </button>
   </div>
  );
 };
