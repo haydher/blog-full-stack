@@ -4,6 +4,7 @@ const app = express();
 const mongoose = require("mongoose");
 const auth = require("./routes/auth");
 const post = require("./routes/posts");
+const Post = require("./models/post");
 
 require("dotenv").config();
 
@@ -27,6 +28,12 @@ app.use("/posts", post);
 
 app.get("/", (req, res) => {
  res.send("hello world");
+});
+
+app.get("/find/:id", async (req, res) => {
+ const result = await Post.findById(req.params.id);
+ console.log("res", result);
+ res.send(result);
 });
 
 app.get("*", function (req, res) {

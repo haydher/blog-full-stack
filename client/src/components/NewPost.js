@@ -20,6 +20,7 @@ export const NewPost = ({ setPosts }) => {
    headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
+    Authorization: "6260e168f3feb7d2771296fd",
    },
    body: JSON.stringify(post),
   };

@@ -10,9 +10,15 @@ export const Posts = ({ loggedIn, setLoggedIn }) => {
   const fetchPosts = async () => {
    const url = `http://localhost:5500/posts`;
 
-   const res = await fetch(url);
+   const res = await fetch(url, {
+    headers: {
+     Authorization: `6260e168f3feb7d2771296fd`,
+    },
+   });
+
    const data = await res.json();
 
+   console.log("data", data);
    res.status === 200 ? setPosts(data) : setError(true);
   };
 
@@ -24,6 +30,7 @@ export const Posts = ({ loggedIn, setLoggedIn }) => {
  // loop over the returned data and show them on the page
  const userPosts =
   posts &&
+  posts.length > 0 &&
   posts.map((elem) => {
    return (
     <div key={elem.id}>
@@ -39,7 +46,7 @@ export const Posts = ({ loggedIn, setLoggedIn }) => {
    <br />
    <NewPost setPosts={setPosts} />
    <br />
-   {userPosts ? userPosts : error ? "Error fetching data" : "Loading"}
+   {userPosts ? userPosts : error ? "Error fetching data" : "Loading..."}
   </div>
  );
 };
