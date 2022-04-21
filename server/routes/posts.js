@@ -3,20 +3,28 @@ const router = express.Router();
 
 const posts = [
  {
+  id: 1,
   title: "hello 1",
-  post: "post 1",
+  post:
+   "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia recusandae ipsam laboriosam sit. Nulla culpa, at repellat dolore doloribus eveniet nobis magni saepe, quam quasi obcaecati, vel exercitationem expedita esse?",
  },
  {
+  id: 2,
   title: "hello 2",
-  post: "post 2",
+  post:
+   "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia recusandae ipsam laboriosam sit. Nulla culpa, at repellat dolore doloribus eveniet nobis magni saepe, quam quasi obcaecati, vel exercitationem expedita esse?",
  },
  {
+  id: 3,
   title: "hello 3",
-  post: "post 3",
+  post:
+   "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia recusandae ipsam laboriosam sit. Nulla culpa, at repellat dolore doloribus eveniet nobis magni saepe, quam quasi obcaecati, vel exercitationem expedita esse?",
  },
  {
+  id: 4,
   title: "hello 4",
-  post: "post 4",
+  post:
+   "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia recusandae ipsam laboriosam sit. Nulla culpa, at repellat dolore doloribus eveniet nobis magni saepe, quam quasi obcaecati, vel exercitationem expedita esse?",
  },
 ];
 
