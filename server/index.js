@@ -29,5 +29,9 @@ app.get("/", (req, res) => {
  res.send("hello world");
 });
 
+app.get("*", function (req, res) {
+ res.send("404");
+});
+
 const port = 5500;
 app.listen(port, () => console.log(`Listening on port: ${port}`));
