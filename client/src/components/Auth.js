@@ -33,14 +33,10 @@ export const Auth = ({ setLoggedIn }) => {
    const res = await fetch(url, options);
    const data = await res.json();
 
-   console.log("res", res);
-   console.log("data", data);
-
    if (res.status === 200) {
     setLoggedIn(true);
     localStorage.setItem("token", data.token);
    } else setError((oldVal) => (oldVal = data.result));
-   console.log("data", data);
   } catch (error) {
    console.log("error authenticating user", error);
   }
