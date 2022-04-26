@@ -56,7 +56,7 @@ export default class Posts extends Component {
    <div>
     <button onClick={this.handleLogout}>Log out</button>
     <br />
-    <NewPost posts={this.state.posts} handlePosts={handlePosts} />
+    <NewPost posts={this.state.posts} handlePosts={this.handlePosts} />
     <br />
     {userPosts ? userPosts : this.state.error ? "Error fetching data" : "No Posts yet"}
    </div>
