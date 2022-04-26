@@ -24,7 +24,6 @@ router.get("/", authUser, async (req, res) => {
 router.post("/", authUser, async (req, res) => {
  const userAuth = req.userId;
 
- console.log("req.body", req.body);
  const verifyPostRes = verifyPost(req.body);
  if (verifyPostRes.status !== 200) return res.status(400).send(verifyPostRes);
 
