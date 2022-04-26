@@ -7,36 +7,32 @@ export default class Posts extends Component {
   error: null,
  };
 
- componentDidMount = () => {
+ fetchPosts = async () => {
   // fetch data from the server if user is logged in
-  const fetchPosts = async () => {
-   const token = localStorage.getItem("token");
-   const url = `http://localhost:5500/posts`;
+  const token = localStorage.getItem("token");
+  const url = this.props.loggedIn ? `http://localhost:5500/posts` : `http://localhost:5500/posts/all`;
 
-   try {
-    const res = await fetch(url, {
-     headers: {
-      Authorization: token,
-     },
-    });
-    const data = await res.json();
+  try {
+   const res = await fetch(url, {
+    headers: {
+     Authorization: token,
+    },
+   });
+   const data = await res.json();
 
-    console.log("data", data);
-    res.status === 200 ? this.setState({ posts: data.response }) : this.setState({ error: true });
-   } catch (error) {
-    console.log("error fetching posts", error);
-   }
-  };
+   res.status === 200 ? this.setState({ posts: data.response }) : this.setState({ error: true });
+  } catch (error) {}
+ };
 
-  this.props.loggedIn && !this.state.posts.length > 0 && fetchPosts();
+ componentDidMount = async () => {
+  this.fetchPosts();
+ };
+
+ componentDidUpdate = (prevProp, preState) => {
+  if (prevProp.loggedIn !== this.props.loggedIn) this.fetchPosts();
  };
 
  handlePosts = (posts) => this.setState({ posts });
-
- handleLogout = () => {
-  this.props.handleLogIn(false);
-  localStorage.removeItem("token");
- };
 
  render() {
   // loop over the returned data and show them on the page
@@ -54,10 +50,7 @@ export default class Posts extends Component {
 
   return (
    <div>
-    <button onClick={this.handleLogout}>Log out</button>
-    <br />
-    <NewPost posts={this.state.posts} handlePosts={this.handlePosts} />
-    <br />
+    {this.props.loggedIn && <NewPost handlePosts={this.handlePosts} />}
     {userPosts ? userPosts : this.state.error ? "Error fetching data" : "No Posts yet"}
    </div>
   );

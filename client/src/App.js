@@ -16,8 +16,9 @@ export default class App extends Component {
     {!this.state.loggedIn ? (
      <Auth handleLogIn={this.handleLogIn} />
     ) : (
-     <Posts loggedIn={this.state.loggedIn} handleLogIn={this.handleLogIn} />
+     <button onClick={() => this.handleLogIn(false)}>Log out</button>
     )}
+    <Posts loggedIn={this.state.loggedIn} />
    </div>
   );
  }
