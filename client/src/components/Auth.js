@@ -37,11 +37,12 @@ export default class Auth extends Component {
    const data = await res.json();
 
    if (res.status === 200) {
-    this.props.handleLoggedIn(true);
+    this.props.handleLogIn(true);
     localStorage.setItem("token", data.token);
    } else this.setState({ error: data.result });
   } catch (error) {
    console.log("error authenticating user", error);
+   this.setState({ error });
   }
  };
 

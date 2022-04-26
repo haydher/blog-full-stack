@@ -35,7 +35,7 @@ router.post("/", authUser, async (req, res) => {
  const posts = await Post.find().where("_id").in(user.posts).exec();
 
  if (response.status !== 200) return res.status(400).send(response);
- return res.status(200).send({ status: 200, reponse: posts });
+ return res.status(200).send({ status: 200, response: posts });
 });
 
 module.exports = router;

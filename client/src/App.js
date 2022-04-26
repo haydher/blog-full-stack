@@ -1,22 +1,22 @@
 import React, { Component } from "react";
 import "./App.css";
 import Auth from "./components/Auth";
-import { Posts } from "./components/Posts";
+import Posts from "./components/Posts";
 
 export default class App extends Component {
  state = {
   loggedIn: localStorage.getItem("token") ? true : false,
  };
 
- handleLoggedIn = (val) => this.setState({ loggedIn: val });
+ handleLogIn = (val) => this.setState({ loggedIn: val });
 
  render() {
   return (
    <div className="App">
     {!this.state.loggedIn ? (
-     <Auth handleLoggedIn={this.handleLoggedIn} />
+     <Auth handleLogIn={this.handleLogIn} />
     ) : (
-     <Posts loggedIn={this.state.loggedIn} setLoggedIn={this.setState} />
+     <Posts loggedIn={this.state.loggedIn} handleLogIn={this.handleLogIn} />
     )}
    </div>
   );
